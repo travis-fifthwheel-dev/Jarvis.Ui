@@ -27,19 +27,19 @@ jobs:
           dotnet-version: 5.x
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: /src
+        working-directory: ./src/Jarvis.Ui.Client
       - name: Create NuGet Package
-        run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/travis-fifthwheel-dev/Jarvis.Ui/releases/tag/${{ github.event.release.tag_name }}"
-        working-directory: /src
+        run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/travis-fifthwheel-dev/Jarvis.Ui.Client/releases/tag/${{ github.event.release.tag_name }}"
+        working-directory: ./src/Jarvis.Ui.Client
       - name: Archive NuGet Package
         uses: actions/upload-artifact@v1
         with:
-          name: Jarvis.Ui
-          path: /src/Jarvis.Ui/bin/Release/Jarvis.Ui.${{ github.event.release.tag_name }}.nupkg
+          name: Jarvis.Ui.Client
+          path: ./src/Jarvis.Ui.Client/bin/Release/Jarvis.Ui.Client.${{ github.event.release.tag_name }}.nupkg
       - name: Archive NuGet Package
         uses: actions/upload-artifact@v1
         with:
-          name: Jarvis.Ui
-          path: /src/Jarvis.Ui/bin/Release/Jarvis.Ui.${{ github.event.release.tag_name }}.nupkg
+          name: Jarvis.Ui.Client
+          path: ./src/Jarvis.Ui.Client/bin/Release/Jarvis.Ui.Client.${{ github.event.release.tag_name }}.nupkg
       - name: Publish Nuget Package
         run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json --no-symbols true
